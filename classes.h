@@ -54,3 +54,11 @@ class paddle {
 		void draw(ALLEGRO_FONT* &font);
 		void move(int change);
 };
+
+class menu {
+	public:
+		bool in_menu;
+		void input(unsigned char* key, ball &game_ball);
+		void draw(ALLEGRO_FONT* font);
+		menu();
+};

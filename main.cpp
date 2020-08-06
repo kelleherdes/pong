@@ -47,18 +47,20 @@ int main(){
     int bx1 = X_DIM / 2, by1 = Y_DIM / 2, size = 10;
     ball game_ball(bx1, by1, size);
     string win_message;
+    menu game_menu;
+
     while (1)
     {
         al_wait_for_event(queue, &event);
         switch (event.type)
         {
         case ALLEGRO_EVENT_TIMER:
+
             if (game_ball.started) {
                 game_ball.detect_collision(p1, p2, peep, beep, plop);
                 game_ball.point(p1, p2);
                 game_ball.move();
                 game_ball.control(p1, p2, key);
-
             }
             
             if (key[ALLEGRO_KEY_ESCAPE])
@@ -89,7 +91,11 @@ int main(){
         {
             disp_pre_draw(disp, buffer);
             al_clear_to_color(al_map_rgb(0, 0, 0));
-            if (game_ball.started) {
+            if (game_menu.in_menu) {
+                game_menu.draw(font);
+                game_menu.input(key, game_ball);
+            }
+            else if (game_ball.started && !game_menu.in_menu) {
                 p1.draw(font);
                 p2.draw(font);
                 game_ball.draw();

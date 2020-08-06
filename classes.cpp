@@ -3,7 +3,7 @@
 using namespace std;
 ball::ball(int x_pos, int y_pos, int s) {
     deflecting = false;
-    started = true;
+    started = false;
 	x = x_pos;
 	y = y_pos;
 	size = s;
@@ -196,4 +196,19 @@ void disp_post_draw(ALLEGRO_DISPLAY* &disp, ALLEGRO_BITMAP* &buffer)
     al_draw_scaled_bitmap(buffer, 0, 0, BUFFER_W, BUFFER_H, 0, 0, DISP_W, DISP_H, 0);
 
     al_flip_display();
+}
+
+menu::menu() {
+    in_menu = true;
+}
+
+void menu::draw(ALLEGRO_FONT* font) {
+    al_draw_text(font, al_map_rgb(255, 255, 255), (double)X_DIM / 2 - 100, (double)Y_DIM / 2 , 0, "PRESS ENTER TO START GAME");
+}
+
+void menu::input(unsigned char* key, ball &game_ball) {
+    if (key[ALLEGRO_KEY_ENTER]) {
+        in_menu = false;
+        game_ball.started = true;
+    }
 }
